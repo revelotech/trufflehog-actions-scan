@@ -7,11 +7,13 @@ if [ -n "${INPUT_SCANARGUMENTS}" ]; then
   args="${INPUT_SCANARGUMENTS}" # Overwrite if new options string is provided
 fi
 
-if [ -n "${INPUT_GITHUBTOKEN}" ]; then
-  githubRepo="https://$INPUT_GITHUBTOKEN@github.com/$GITHUB_REPOSITORY" # Overwrite for private repository if token provided
-else
-  githubRepo="https://github.com/$GITHUB_REPOSITORY" # Default target repository
-fi
+# if [ -n "${INPUT_GITHUBTOKEN}" ]; then
+#   githubRepo="https://$INPUT_GITHUBTOKEN@github.com/$GITHUB_REPOSITORY" # Overwrite for private repository if token provided
+# else
+#   githubRepo="https://github.com/$GITHUB_REPOSITORY" # Default target repository
+# fi
+
+githubRepo="/app"
 
 query="$args $githubRepo" # Build args query with repository url
 trufflehog $query
