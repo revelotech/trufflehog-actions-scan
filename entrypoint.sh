@@ -13,7 +13,6 @@ fi
 #   githubRepo="https://github.com/$GITHUB_REPOSITORY" # Default target repository
 # fi
 
-githubRepo="/app"
 
-query="$args $githubRepo" # Build args query with repository url
-trufflehog $query
+query="$args" # Build args query with repository url
+trufflehog $query .
