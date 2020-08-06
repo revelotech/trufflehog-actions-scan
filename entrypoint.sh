@@ -2,7 +2,8 @@
 set -e # Abort script at first error
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-max_depth=$(git rev-list --count --no-merges master..)
+echo "$current_branch"
+max_depth=$(git rev-list master..HEAD --count)
 args="--regex --branch ${current_branch} --max_depth=${max_depth}" # Default trufflehog options
 
 if [ -n "${INPUT_SCANARGUMENTS}" ]; then
