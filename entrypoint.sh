@@ -11,4 +11,4 @@ if [ -n "${INPUT_SCANARGUMENTS}" ]; then
 fi
 
 query="$args" # Build args query with repository url
-trufflehog $query . | jq 'del(.[].stringsFound)'
+trufflehog $query . | jq -s 'del(.[].diff) |del(.[].printDiff) |del(.[].stringsFound)'
