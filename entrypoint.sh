@@ -10,4 +10,8 @@ if [ -n "${INPUT_SCANARGUMENTS}" ]; then
 fi
 
 query="$args" # Build args query with repository url
-trufflehog $query .
+res=$(trufflehog $query . | jq -s 'del(.[].diff) |del(.[].printDiff) |del(.[].stringsFound)')
+if [[ "$res" != "[]" ]]; then
+  echo $res | jq
+  exit 1
+fi
