@@ -4,6 +4,11 @@ set -e # Abort script at first error
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 max_depth=$(git rev-list origin/master..HEAD --count)
 echo "Current branch: ${current_branch}. # commits: ${max_depth}."
+
+if [[ $max_depth -eq 0 ]]; then
+  exit 0
+fi
+
 args="--regex --branch ${current_branch} --max_depth=${max_depth} --json" # Default trufflehog options
 
 if [ -n "${INPUT_SCANARGUMENTS}" ]; then
