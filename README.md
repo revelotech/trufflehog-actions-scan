@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # Essa opcao no checkout e' essencial!
       - name: trufflehog-actions-scan
         uses: contratadome/trufflehog-actions-scan@master
 
