@@ -18,5 +18,6 @@ RUN apk --update add git less openssh jq && \
 
 ADD entrypoint.sh  /entrypoint.sh
 ADD regexes.json /regexes.json
+ADD .ignorelist /.ignorelist
 
 ENTRYPOINT ["/entrypoint.sh"]
