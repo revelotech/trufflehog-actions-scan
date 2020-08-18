@@ -1,3 +1,4 @@
 Gemfile.lock
 yarn.lock
 package-json.lock
+regexes.json
