@@ -1,9 +1,6 @@
 #!/usr/bin/env sh
 set -e # Abort script at first error
 
-# Ensure master ref is present
-git fetch -u origin master:master
-
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 max_depth=$(git rev-list origin/master..HEAD --count)
 
