@@ -7,6 +7,9 @@ git fetch -u origin master:master
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 max_depth=$(git rev-list origin/master..HEAD --count)
 
+echo current branch is $current_branch
+echo max depth is $max_depth
+
 if [[ "$current_branch" != 'master' && $max_depth -eq 0 ]]; then
   exit 0
 fi
@@ -21,6 +24,7 @@ if [ -n "${INPUT_SCANARGUMENTS}" ]; then
 fi
 
 query="$args" # Build args query with repository url
+echo running \"$query\"
 res=$(trufflehog $query . | jq -s 'del(.[].diff) |del(.[].printDiff) |del(.[].stringsFound)')
 if [[ "$res" != "[]" ]]; then
   echo $res | jq
