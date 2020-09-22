@@ -18,7 +18,7 @@ jobs:
   check_secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.0.1
         with:
           fetch-depth: 0
       - name: trufflehog-actions-scan
