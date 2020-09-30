@@ -11,7 +11,7 @@ if [[ "$current_branch" != 'master' && $max_depth -eq 0 ]]; then
   exit 0
 fi
 
-args="--regex --branch ${current_branch} --json -x /.ignorelist" # Default trufflehog options
+args="--regex --rules /regexes.json --branch ${current_branch} --json -x /.ignorelist" # Default trufflehog options
 if [[ $max_depth -gt 0 ]]; then
   args="$args --max_depth=${max_depth}"
 fi
