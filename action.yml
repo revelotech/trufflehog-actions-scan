@@ -4,6 +4,8 @@ author: 'Ed Plato'
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.DEFAULT_BRANCH }}
 inputs:
   DEFAULT_BRANCH:
     description: "master or main"
