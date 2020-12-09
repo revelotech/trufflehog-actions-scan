@@ -5,6 +5,9 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
 inputs:
+  DEFAULT_BRANCH:
+    description: "master or main"
+    required: false
   githubToken:
     description: 'GitHub Token to access a private repository.'
     required: false
