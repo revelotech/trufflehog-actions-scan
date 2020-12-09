@@ -1,13 +1,17 @@
 #!/usr/bin/env sh
 set -e # Abort script at first error
 
+if [[ -z $INPUT_DEFAULT_BRANCH ]]; then
+  INPUT_DEFAULT_BRANCH='master'
+fi
+
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-max_depth=$(git rev-list origin/master..HEAD --count)
+max_depth=$(git rev-list origin/${INPUT_DEFAULT_BRANCH}..HEAD --count)
 
 echo current branch is $current_branch
 echo max depth is $max_depth
 
-if [[ "$current_branch" != 'master' && $max_depth -eq 0 ]]; then
+if [[ "$current_branch" != "$INPUT_DEFAULT_BRANCH" && $max_depth -eq 0 ]]; then
   exit 0
 fi
 
