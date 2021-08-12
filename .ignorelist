@@ -1,3 +1,4 @@
 Gemfile.lock
 yarn.lock
 package-lock.json
+pubspec.lock
