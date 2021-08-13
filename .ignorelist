@@ -1,5 +1,5 @@
-Gemfile.lock
-yarn.lock
-package-lock.json
-Podfile.lock
-pubspec.lock
+(.*/)?Gemfile.lock
+(.*/)?yarn.lock
+(.*/)?package-lock.json
+(.*/)?Podfile.lock
+(.*/)?pubspec.lock
