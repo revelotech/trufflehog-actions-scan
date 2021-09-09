@@ -13,10 +13,6 @@ if [ -z $REGEXES_PATH ]; then
   REGEXES_PATH='/regexes.json'
 fi
 
-if [ -z $FOOBAR ]; then
-  echo 'foobar'
-fi
-
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 max_depth=$(git rev-list origin/${INPUT_DEFAULT_BRANCH}..HEAD --count)
 
