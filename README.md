@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: trufflehog-actions-scan
-        uses: contratadome/trufflehog-actions-scan@master
+        uses: contratadome/trufflehog-actions-scan
         with:
           DEFAULT_BRANCH: main
 
