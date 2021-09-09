@@ -13,6 +13,12 @@ if [ -z $REGEXES_PATH ]; then
   REGEXES_PATH='/regexes.json'
 fi
 
+if [ "$SHOW_STRINGS" = true ]; then
+  JQ_QUERY="del(.[].diff) |del(.[].printDiff)"
+else
+  JQ_QUERY="del(.[].diff) |del(.[].printDiff) |del(.[].stringsFound)"
+fi
+
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 max_depth=$(git rev-list origin/${INPUT_DEFAULT_BRANCH}..HEAD --count)
 
@@ -37,7 +43,7 @@ fi
 
 query="$args" # Build args query with repository url
 echo running \"trufflehog $query .\"
-res=$(trufflehog $query . | jq -s 'del(.[].diff) |del(.[].printDiff) |del(.[].stringsFound)')
+res=$(trufflehog $query . | jq -s "$JQ_QUERY")
 if [ "$res" != "[]" ]; then
   printf '%s' "$res" | jq
   exit 1
