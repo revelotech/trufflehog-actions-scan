@@ -16,10 +16,11 @@ fi
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 max_depth=$(git rev-list origin/${INPUT_DEFAULT_BRANCH}..HEAD --count)
 
-echo current branch is $current_branch
-echo max depth is $max_depth
+echo current branch is $current_branch.
+echo depth is $max_depth.
 
-if [ "$current_branch" != "$INPUT_DEFAULT_BRANCH" ] && [ $max_depth -eq 0 ]; then
+if [ $max_depth -eq 0 ]; then
+  echo "No commit found. Leaving."
   exit 0
 fi
 
@@ -35,9 +36,9 @@ if [ $max_depth -gt 0 ]; then
 fi
 
 query="$args" # Build args query with repository url
-echo running \"$query\"
+echo running \"trufflehog $query .\"
 res=$(trufflehog $query . | jq -s 'del(.[].diff) |del(.[].printDiff) |del(.[].stringsFound)')
 if [ "$res" != "[]" ]; then
-  echo $res | jq
+  printf '%s' "$res" | jq
   exit 1
 fi
