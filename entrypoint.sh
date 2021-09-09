@@ -5,6 +5,14 @@ if [[ -z $INPUT_DEFAULT_BRANCH ]]; then
   INPUT_DEFAULT_BRANCH='master'
 fi
 
+if [[ -z $IGNORE_LIST_PATH ]]; then
+  IGNORE_LIST_PATH='/.ignorelist'
+fi
+
+if [[ -z $REGEXES_PATH ]]; then
+  REGEXES_PATH='/regexes.json'
+fi
+
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 max_depth=$(git rev-list origin/${INPUT_DEFAULT_BRANCH}..HEAD --count)
 
@@ -21,7 +29,7 @@ if [[ "$current_branch" == "HEAD" ]]; then
   git checkout -b $current_branch
 fi
 
-args="--regex --rules /regexes.json --branch ${current_branch} --json -x /.ignorelist" # Default trufflehog options
+args="--regex --rules $REGEXES_PATH --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}" # Default trufflehog options
 if [[ $max_depth -gt 0 ]]; then
   args="$args --max_depth=${max_depth}"
 fi
