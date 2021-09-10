@@ -13,6 +13,10 @@ if [ -z $REGEXES_PATH ]; then
   REGEXES_PATH='/regexes.json'
 fi
 
+if [ -z $IGNORE_PATTERNS_PATH ]; then
+  IGNORE_PATTERNS_PATH='/ignore_patterns.json'
+fi
+
 if [ "$SHOW_STRINGS" = true ]; then
   JQ_QUERY="del(.[].diff) |del(.[].printDiff)"
 else
@@ -36,7 +40,10 @@ if [ $current_branch = "HEAD" ]; then
   git checkout -b $current_branch
 fi
 
-args="--regex --rules $REGEXES_PATH --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}" # Default trufflehog options
+args="--regex --branch ${current_branch} --json \
+  --rules $REGEXES_PATH \
+  --allow $IGNORE_PATTERNS_PATH \
+  -x ${IGNORE_LIST_PATH}"
 if [ $max_depth -gt 0 ]; then
   args="$args --max_depth=${max_depth}"
 fi
