@@ -4,3 +4,4 @@
 (.*/)?Podfile.lock
 (.*/)?pubspec.lock
 (.*/)?project.pbxproj
+(.*/)?(.*).xcscheme
