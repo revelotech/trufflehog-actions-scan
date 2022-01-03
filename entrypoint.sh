@@ -60,13 +60,10 @@ fi
 # 2. search for high entropy
 
 echo ":: Running \"trufflehog $args .\""
-res=$(trufflehog $args . | jq -s "$JQ_QUERY")
+res=$(trufflehog $args . | jq -s "$JQ_QUERY" | jq -c .)
 if [ "$res" != "[]" ]; then
-  res="${res//'%'/'%25'}"
-  res="${res//$'\n'/'%0A'}"
-  res="${res//$'\r'/'%0D'}"
   echo "::warning ::High entropy found"
-  echo "::set-output name=high_entropy::$res"
+  echo '::set-output name=high_entropy::'"$res"
 else
   echo ":: Nothing found."
 fi
