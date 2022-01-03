@@ -36,17 +36,34 @@ if [ $current_branch = "HEAD" ]; then
   git checkout -b $current_branch
 fi
 
-args="--regex --rules $REGEXES_PATH --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}" # Default trufflehog options
+# 1. search for known regexes
+
+args="--entropy=False --regex --rules $REGEXES_PATH --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}"
 if [ $max_depth -gt 0 ]; then
   args="$args --max_depth=${max_depth}"
 fi
 
-query="$args" # Build args query with repository url
-echo ":: Running \"trufflehog $query .\""
-res=$(trufflehog $query . | jq -s "$JQ_QUERY")
+echo ":: Running \"trufflehog $args .\""
+res=$(trufflehog $args . | jq -s "$JQ_QUERY")
 if [ "$res" != "[]" ]; then
   printf '%s' "$res" | jq
   exit 1
+else
+  echo ":: Nothing found."
+fi
+
+args="--entropy=True --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}"
+if [ $max_depth -gt 0 ]; then
+  args="$args --max_depth=${max_depth}"
+fi
+
+# 2. search for high entropy
+
+echo ":: Running \"trufflehog $args .\""
+res=$(trufflehog $args . | jq -s "$JQ_QUERY" | jq -c .)
+if [ "$res" != "[]" ]; then
+  echo "::warning ::High entropy found"
+  echo '::set-output name=high_entropy::'"$res"
 else
   echo ":: Nothing found."
 fi

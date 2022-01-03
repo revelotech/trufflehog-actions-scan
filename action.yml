@@ -10,12 +10,9 @@ inputs:
   DEFAULT_BRANCH:
     description: "master or main"
     required: false
-  githubToken:
-    description: 'GitHub Token to access a private repository.'
-    required: false
-  scanArguments:
-    description: 'Argument options for scan.'
-    required: false
+outputs:
+  high_entropy:
+    description: "found"
 branding:
   icon: 'shield'  
   color: 'yellow'
