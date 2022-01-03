@@ -1,5 +1,5 @@
 
-# Trufflehog Actions Scan :pig_nose::key:
+# Check Secrets Action
 
 * Forkado de https://github.com/dxa4481/truffleHog
 * Nao exibe os segredos encontrados
@@ -12,19 +12,53 @@ Executa o workflow a cada push, olhando apenas para o branch atual.
 ```yaml
 # .github/workflows/check_secrets.yml
 
-name: Check secrets
-on: push
+name: Check Secrets
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
-  check_secrets:
+  check-secrets:
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      -
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: trufflehog-actions-scan
-        uses: contratadome/trufflehog-actions-scan
+      - name: Check secrets
+        uses: contratadome/trufflehog-actions-scan@4.2
         with:
           DEFAULT_BRANCH: main
+      -
+        name: Comment high entropy
+        uses: actions/github-script@v5
+        if: ${{ steps.check-secrets.outputs.high_entropy }}
+        env:
+          HIGH_ENTROPY_OUTPUT: ${{ steps.check-secrets.outputs.high_entropy }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### :warning: CHECK SECRETS: HIGH ENTROPY :warning:
+            
+            - Check your code before merging!!!
+            - Beware of SECRETS and SENSITIVE INFORMATION!!!
+            
+            <details><summary>Show Output</summary>
+            
+            \`\`\`\n
+            ${JSON.stringify(JSON.parse(process.env.HIGH_ENTROPY_OUTPUT), null, 4)}
+            \`\`\`
+            
+            </details>
+            
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+              
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
 
 ```
 
