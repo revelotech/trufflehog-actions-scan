@@ -10,6 +10,9 @@ inputs:
   DEFAULT_BRANCH:
     description: "master or main"
     required: false
+outputs:
+  high_entropy:
+    description: "found"
 branding:
   icon: 'shield'  
   color: 'yellow'

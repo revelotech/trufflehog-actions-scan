@@ -63,6 +63,7 @@ echo ":: Running \"trufflehog $args .\""
 res=$(trufflehog $args . | jq -s "$JQ_QUERY")
 if [ "$res" != "[]" ]; then
   echo "::warning ::High entropy found"
+  echo "::set-output name=high_entropy::found"
 else
   echo ":: Nothing found."
 fi
