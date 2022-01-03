@@ -18,6 +18,7 @@ inputs:
     required: false
 outputs:
   check_secrets_warning:
+    description: 'Check secrets warning output'
 branding:
   icon: 'shield'  
   color: 'yellow'
