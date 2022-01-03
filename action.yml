@@ -16,6 +16,8 @@ inputs:
   scanArguments:
     description: 'Argument options for scan.'
     required: false
+outputs:
+  check_secrets_warning:
 branding:
   icon: 'shield'  
   color: 'yellow'
