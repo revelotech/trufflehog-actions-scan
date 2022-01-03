@@ -38,7 +38,7 @@ fi
 
 # 1. search for known regexes
 
-args="--regex --rules $REGEXES_PATH --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}"
+args="--entropy=False --regex --rules $REGEXES_PATH --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}"
 if [ $max_depth -gt 0 ]; then
   args="$args --max_depth=${max_depth}"
 fi
@@ -52,7 +52,7 @@ else
   echo ":: Nothing found."
 fi
 
-args="--entropy --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}"
+args="--entropy=True --branch ${current_branch} --json -x ${IGNORE_LIST_PATH}"
 if [ $max_depth -gt 0 ]; then
   args="$args --max_depth=${max_depth}"
 fi
