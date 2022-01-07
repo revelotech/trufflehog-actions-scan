@@ -25,7 +25,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Check secrets
+      - 
+        id: check-secrets
+        name: Check secrets
         uses: contratadome/trufflehog-actions-scan@4.2
         with:
           DEFAULT_BRANCH: main
