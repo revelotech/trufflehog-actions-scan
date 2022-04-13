@@ -28,7 +28,7 @@ jobs:
       - 
         id: check-secrets
         name: Check secrets
-        uses: contratadome/trufflehog-actions-scan@4.2
+        uses: contratadome/trufflehog-actions-scan@4.2.1
         with:
           DEFAULT_BRANCH: main
       -
