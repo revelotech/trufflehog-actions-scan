@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 set -e # Abort script at first error
 
+git config --global --add safe.directory /github/workspace
+
 if [ -z $INPUT_DEFAULT_BRANCH ]; then
   INPUT_DEFAULT_BRANCH='master'
 fi
