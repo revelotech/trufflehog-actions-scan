@@ -25,10 +25,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - 
+      -
         id: check-secrets
         name: Check secrets
-        uses: contratadome/trufflehog-actions-scan@4.2.1
+        uses: contratadome/trufflehog-actions-scan@4.2.2
         with:
           DEFAULT_BRANCH: main
       -
@@ -109,3 +109,7 @@ Neste caso, você pode:
 - configurar essa action para ignorar um arquivo (alterando `.ignorelist`).
 
 Lembre de testar muito bem essas alterações para não comprometer a segurança das aplicações ;)
+
+## Como validar se o trufflehog está funcionando?
+
+O trufflehog avalia todos os arquivos do projeto buscando por secrets expostos. Portanto, para validar que a configuração foi feita corretamente, ou mesmo para validar uma nova versão, basta adicionar um secret qualquer em um arquivo.Utilize uma branch separada para isso. Atenção aos pontos do item **Como remover um segredo** pois esses valores usados para validação serão considerados expostos. A lista de regras pode ser conferida em `regexes.json`.
