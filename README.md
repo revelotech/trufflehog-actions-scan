@@ -33,7 +33,7 @@ jobs:
           DEFAULT_BRANCH: main
       -
         name: Comment high entropy
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         if: ${{ steps.check-secrets.outputs.high_entropy }}
         env:
           HIGH_ENTROPY_OUTPUT: ${{ steps.check-secrets.outputs.high_entropy }}
