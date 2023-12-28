@@ -2,8 +2,8 @@ FROM python:3.7-alpine
 
 LABEL name="trufflehog-actions-scan"
 LABEL version="1.0.2"
-LABEL repository="https://github.com/contratadome/trufflehog-actions-scan"
-LABEL homepage="https://github.com/contratadome/trufflehog-actions-scan"
+LABEL repository="https://github.com/revelotech/trufflehog-actions-scan"
+LABEL homepage="https://github.com/revelotech/trufflehog-actions-scan"
 LABEL maintainer="Revelo"
 
 LABEL "com.github.actions.name"="Trufflehog Actions Scan"
